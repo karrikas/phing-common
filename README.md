@@ -7,6 +7,7 @@ phing fitxategiak izaten dituzten funtzioak izango ditu.
 <h2>Erabilera</h2>
 <p>
 Proiektuaren oinarrian fitxategiak kopiatu.<br />
+
 git clone https://github.com/karrikas/phing-default<br />
 Fitxategiei behar duten izena jarri .properties.defaul orain .properties eta 
 build.xml.default build.xml. <br/>
