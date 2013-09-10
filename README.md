@@ -1,14 +1,16 @@
-<h1>phing-default</h1>
+<h1>Phing-common</h1>
 
-
-Php proiektuetan erabiltzeko defektuzko phing fitxategia. Fitxategi honek hoiko 
-phing fitxategiak izaten dituzten funtzioak izango ditu.
+Ohiko phing funtzioak biltzeko proiektuak. 
 
 <h2>Erabilera</h2>
 <p>
-Proiektuaren oinarrian fitxategiak kopiatu.<br />
+Zure PHP proiektuaren oinarrian kopiatu phing-common.<br />
 
-git clone https://github.com/karrikas/phing-default<br />
+<pre>
+<code>git clone https://github.com/karrikas/phing-common</code>
+</pre>
+
+<br />
 Fitxategiei behar duten izena jarri .properties.defaul orain .properties eta 
 build.xml.default build.xml. <br/>
 Ondoren .properties fitxategia zure aldagiekin osatu. Listo phing erabiltzeko. <br/>
