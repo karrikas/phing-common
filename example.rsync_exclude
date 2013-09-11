@@ -1,13 +1,21 @@
 *.txt
 .git
 .svn
-
+.buildpath
+.project
+.properties
+.settings
 README.md
 .htaccess
 sitemap.xml
 sitemap.xml.gz
+build.xml
+rsync_exclude
 error_log
 google*
+
+- build
+- phing-common
 
 # symfony2 common ignored
 - app/build
@@ -16,6 +24,5 @@ google*
 - app/sql
 
 # wordpress common ignored
-- wp-content/plugins
 - wp-content/uploads
 - wp-content/infinitewp
