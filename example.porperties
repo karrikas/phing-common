@@ -1,0 +1,27 @@
+# Proiektuaren balioak
+project.name        = 
+
+# Datu basearen datuak
+db.user             = 
+db.pass             = 
+db.name             = 
+db.host             = 
+
+# Rsync konfigurazioa
+rsync.host          = 
+rsync.user          = 
+rsync.port          = 
+rsync.dir.local     = 
+rsync.dir.remote    = 
+
+# Svn konfigurazioa
+svn.user            = 
+svn.pass            = 
+svn.http            = 
+
+
+# Ohiko baloreak normalean ez dira aldatu behar
+project.build       = build
+dir.common          = phing-common
+db.dir              = ${project.build}/sql
+dir.export          = ${project.build}/export

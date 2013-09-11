@@ -1,0 +1,21 @@
+*.txt
+.git
+.svn
+
+README.md
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+error_log
+google*
+
+# symfony2 common ignored
+- app/build
+- app/config/parameters.ini
+- app/logs/*
+- app/sql
+
+# wordpress common ignored
+- wp-content/plugins
+- wp-content/uploads
+- wp-content/infinitewp

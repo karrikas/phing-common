@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir=".">
+
+    <target name="db:backup:make">
+        <echo msg="Sql fitxategia sortzen" />
+        <mkdir dir="${db.dir}" mode="0777" />
+
+        <exec command="mysqldump -u${db.user} -p${db.pass} -h localhost ${db.name} > ${db.dir}/backup.sql" level="info" />         
+    </target>
+    
+    <target name="db:backup:restore">
+        <echo msg="Datu basea ezabatu" />
+        <exec command="mysql -u${db.user} -p${db.pass} -h localhost -e 'DROP DATABASE ${db.name}'" level="info" />
+                
+        <echo msg="Datu base berria sortu" />
+        <exec command="mysql -u${db.user} -p${db.pass} -h localhost -e 'CREATE DATABASE ${db.name}'" level="info" />
+
+        <echo msg="Eguneraketa aplikatzen" />
+        <exec command="mysql -u${db.user} -p${db.pass} -h localhost ${db.name} &lt; ${db.dir}/backup.sql" level="info" />         
+    </target>
+    
+    <target name="sync:up">
+        <echo msg="Fitxategiak lokaletik zerbitzarian kopiatzen" />
+        
+        <propertyprompt propertyName="rsync.type" promptText="Zer egingo duzu (test or real)" />
+        <if>
+            <equals arg1="${rsync.type}" arg2="real" />
+            <then>
+                <echo message="Real" />
+                <exec command="rsync --exclude-from='rsync_exclude' -e 'ssh -p ${rsync.port}' --delete-after -razv ${rsync.dir.local} ${rsync.user}@${rsync.host}:${rsync.dir.remote}" outputProperty="cmdinfo" />
+            </then>
+            <else>
+                <echo message="Test" />
+                <exec command="rsync --exclude-from='rsync_exclude' -e 'ssh -p ${rsync.port}' --delete-after -razvn ${rsync.dir.local} ${rsync.user}@${rsync.host}:${rsync.dir.remote}" outputProperty="cmdinfo" />
+            </else>
+        </if>
+        <echo msg="${cmdinfo}" />
+    </target>
+    
+    <target name="sync:down">
+        <echo msg="Fitxategiak zerbitzaritik lokalera kopiatzen" />
+        
+        <propertyprompt propertyName="rsync.type" promptText="Zer egingo duzu (test or real)" />
+        <if>
+            <equals arg1="${rsync.type}" arg2="real" />
+            <then>
+                <echo message="Real" />
+                <exec command="rsync -e 'ssh -p ${rsync.port}' -razv ${rsync.user}@${rsync.host}:${rsync.dir.remote}/ ${rsync.dir.local}" outputProperty="cmdinfo" />
+            </then>
+            <else>
+                <echo message="Test" />
+                <exec command="rsync -e 'ssh -p ${rsync.port}' -razvn ${rsync.user}@${rsync.host}:${rsync.dir.remote}/ ${rsync.dir.local}" outputProperty="cmdinfo" />
+            </else>
+        </if>
+        <echo msg="${cmdinfo}" />
+    </target>
+    
+    <target name="svn:export:diff">
+        <echo msg="Errebizioen zerrendako aldatutako fitxategiak exportatu" />
+        <svnlog username="${svn.user}" password="${svn.pass}" repositoryurl="${svn.http}" limit="20" propertyname="svn.log" />
+        <echo message="${svn.log}" />
+
+        <propertyprompt propertyName="svn.revision" promptText="Zein errebisiotik exportatuko da?" />
+
+        <svnlastrevision username="${svn.user}" password="${svn.pass}" repositoryurl="${svn.http}" propertyname="svn.lastrevision" />
+        <delete dir="${dir.export}" includeemptydirs="true" verbose="true" />
+        <mkdir dir="${dir.export}" mode="0777" />
+
+        <exec level="info" outputProperty="svn.export.log" command="sh ${dir.common}/scripts/svnexport.sh ${svn.revision} ${svn.lastrevision} ${svn.http} ${dir.export}/" />
+        <echo message="${svn.export.log}" />
+    </target>
+
+</project>
