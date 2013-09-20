@@ -16,7 +16,7 @@ Karpeta horretan dauden fitxategiak copiatu zure proiektura bertan phing-ekine e
 <code>cp phing-common/example.build.xml build.xml</code>
 </pre>
 <pre>
-<code>cp phing-common/example.porperties .porperties</code>
+<code>cp phing-common/example.porperties .properties</code>
 </pre>
 <pre>
 <code>cp phing-common/example.rsync_exclude rsync_exclude</code>
