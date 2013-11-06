@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project basedir=".">
-
+    
+    <target name="project:new">
+        <mkdir dir="${project.basedir}/build" mode="0777" />
+        <mkdir dir="${project.basedir}/src" mode="0777" />
+        <mkdir dir="${project.basedir}/test" mode="0777" />
+        <mkdir dir="${project.basedir}/vendor" mode="0777" />
+    </target>
+    
     <target name="db:backup:make">
         <echo msg="Sql fitxategia sortzen" />
         <mkdir dir="${db.dir}" mode="0777" />
