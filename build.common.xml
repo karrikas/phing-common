@@ -12,7 +12,7 @@
     <target name="db:backup:make">
         <echo msg="Fitxategiak garbitu" />
         <delete file="${db.dir}/backup.sql" />
-        <delete file="${db.dir}/backup.tar.gz" />
+        <delete file="${db.dir}/backup.sql.zip" />
 
         <echo msg="Sql fitxategia sortzen" />
         <mkdir dir="${db.dir}" mode="0777" />
@@ -21,11 +21,12 @@
         <exec command="mysqldump -u${db.user} -p${db.pass} -h localhost ${db.name} > ${db.dir}/backup.sql" level="info" />
 
         <echo msg="Babeskopia konprimitzen" />
-        <tar destfile="${db.dir}/backup.tar.gz" compression="gzip">
-             <fileset dir="${db.dir}">
-                 <include name="backup.sql" />
-             </fileset>
-        </tar>
+        <zip destfile="${db.dir}/backup.sql.zip">
+            <fileset dir="${db.dir}">
+                <include name="backup.sql" />
+            </fileset>
+        </zip>
+
 
         <echo msg="Fitxategiak garbitu" />
         <delete file="${db.dir}/backup.sql" />
@@ -39,7 +40,7 @@
         <exec command="mysql -u${db.user} -p${db.pass} -h localhost -e 'CREATE DATABASE ${db.name}'" level="info" />
 
         <echo msg="Babeskopia deskonprimitu" />
-        <untar file="${db.dir}/backup.tar.gz" todir="${db.dir}" />
+        <unzip file="${db.dir}/backup.sql.zip" todir="${db.dir}" />
 
         <echo msg="Eguneraketa aplikatzen" />
         <exec command="mysql -u${db.user} -p${db.pass} -h localhost ${db.name} &lt; ${db.dir}/backup.sql" level="info" />
