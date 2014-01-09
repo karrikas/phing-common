@@ -12,7 +12,6 @@ sitemap.xml.gz
 build.xml
 rsync_exclude
 error_log
-google*
 
 - build
 - phing-common
