@@ -18,7 +18,7 @@ error_log
 
 # symfony2 common ignored
 - app/build
-- app/config/parameters.ini
+- app/config/*
 - app/logs/*
 - app/sql
 
